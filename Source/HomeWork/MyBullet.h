@@ -33,8 +33,6 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	FRotator Roll;
-
 	//variables---------------------------------------------
 	AMyBullet* Actr;
 	FVector SpawnLocation;
@@ -98,6 +96,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "MyVar")
 	float anim_duration;
+
+	UPROPERTY(EditAnywhere, Category = "MyVar")
+	FRotator Roll;
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
