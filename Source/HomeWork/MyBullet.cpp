@@ -157,5 +157,5 @@ void AMyBullet::BangEffect()
 		UGameplayStatics::PlaySoundAtLocation(ConeScene, BangSound, ConeScene->GetComponentLocation());
 	}
 
-	//Destroy();
+	Destroy();
 }

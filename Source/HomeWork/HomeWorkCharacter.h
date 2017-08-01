@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "MyTarget.h"
 #include "MyBullet.h"
+#include "HomeWorkProjectile.h"
 #include "Runtime/CoreUObject/Public/UObject/ConstructorHelpers.h"
 #include "Runtime/Engine/Public/TimerManager.h"
 #include "GameFramework/Character.h"
@@ -69,9 +70,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	FVector GunOffset;
 
-	/** Projectile class to spawn 
-	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class AHomeWorkProjectile> ProjectileClass;*/
+	/** Projectile class to spawn */
+	UPROPERTY(EditDefaultsOnly, Category = Projectile)
+	TSubclassOf<class AHomeWorkProjectile> ProjectileClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = Projectile)
 	TSubclassOf<class AMyBullet> MyBulletBP;
@@ -104,6 +105,8 @@ protected:
 	void SpawnBullet();
 
 	void OnSelectTarget();
+
+	void FireAnim();
 
 	FTimerHandle SampleTimerHandle;
 	bool bTimerExpired;
