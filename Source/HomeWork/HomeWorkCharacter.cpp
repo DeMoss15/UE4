@@ -201,7 +201,7 @@ void AHomeWorkCharacter::SpawnBullet()
 			DroppedBullet = World->SpawnActor<AMyBullet>(MyBulletBP, SpawnLocation, SpawnRotation);//->SetAim(SpawnLocation, MyAim->GetActorLocation());
 			if (DroppedBullet)
 			{
-				DroppedBullet->SetAim(MyAim->GetActorLocation());
+				DroppedBullet->SetAim(MyAim->GetActorLocation(), this->GetActorForwardVector());
 				MyAim->aimed = false;
 			}
 		}

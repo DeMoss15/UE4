@@ -13,6 +13,7 @@ AMyBullet::AMyBullet()
 	started = false;
 	anim_duration = 5;
 	height = 25;
+	forward_dist = 150;
 	FlyTraectory = CreateDefaultSubobject<USplineComponent>(TEXT("Traectory"));
 	FlyTraectory->ClearSplinePoints();
 	
@@ -56,23 +57,30 @@ AMyBullet::AMyBullet()
 	// adding components----------------------------------------------------------------------------------------
 }
 
-void AMyBullet::SetAim(FVector AimLoc)
+void AMyBullet::SetAim(FVector AimLoc, FVector ForwardVec)
 {
 	//Set Traectory to Aim--------------------------------------------------------------------------------------
 	SpawnLocation = this->GetActorLocation();
 	AimLocation = AimLoc;
+	FVector ForwardPoint;
 
 	//add points to spline
 	FlyTraectory->ClearSplinePoints();
+
 	FlyTraectory->AddSplinePointAtIndex(SpawnLocation, 0, ESplineCoordinateSpace::World);
 	FlyTraectory->SetSplinePointType(0, ESplinePointType::Linear);
 
-	MidLocation.Set((AimLocation.X + SpawnLocation.X) / 2, (AimLocation.Y + SpawnLocation.Y) / 2, (AimLocation.Z + SpawnLocation.Z) / 2 + height);
-	FlyTraectory->AddSplinePointAtIndex(MidLocation, 1, ESplineCoordinateSpace::World);//add height
+	ForwardPoint = SpawnLocation + ForwardVec * forward_dist;
+	ForwardPoint.Z += height / 4;
+	FlyTraectory->AddSplinePointAtIndex(ForwardPoint, 1, ESplineCoordinateSpace::World);
 	FlyTraectory->SetSplinePointType(1, ESplinePointType::Curve);
 
-	FlyTraectory->AddSplinePointAtIndex(AimLocation, 2, ESplineCoordinateSpace::World);
-	FlyTraectory->SetSplinePointType(2, ESplinePointType::Linear);
+	MidLocation.Set((AimLocation.X + SpawnLocation.X) / 2, (AimLocation.Y + SpawnLocation.Y) / 2, (AimLocation.Z + SpawnLocation.Z) / 2 + height);
+	FlyTraectory->AddSplinePointAtIndex(MidLocation, 2, ESplineCoordinateSpace::World);//add height
+	FlyTraectory->SetSplinePointType(2, ESplinePointType::Curve);
+
+	FlyTraectory->AddSplinePointAtIndex(AimLocation, 3, ESplineCoordinateSpace::World);
+	FlyTraectory->SetSplinePointType(3, ESplinePointType::Curve);
 	//Set Traectory to Aim--------------------------------------------------------------------------------------
 
 	started = true;
@@ -149,5 +157,5 @@ void AMyBullet::BangEffect()
 		UGameplayStatics::PlaySoundAtLocation(ConeScene, BangSound, ConeScene->GetComponentLocation());
 	}
 
-	Destroy();
+	//Destroy();
 }

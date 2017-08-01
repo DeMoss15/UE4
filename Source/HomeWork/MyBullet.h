@@ -27,14 +27,13 @@ class HOMEWORK_API AMyBullet : public AActor
 public:	
 	// Sets default values for this actor's properties
 	AMyBullet();
-	void SetAim(FVector AimLoc);
+	void SetAim(FVector AimLoc, FVector ForwardVec);
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	//variables---------------------------------------------
-	AMyBullet* Actr;
 	FVector SpawnLocation;
 	FVector AimLocation;
 	FVector MidLocation;
@@ -90,6 +89,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "MyVar")
 	float rotation_speed;
+
+	UPROPERTY(EditAnywhere, Category = "MyVar")
+	float forward_dist;
 
 	UPROPERTY(EditAnywhere, Category = "MyVar")
 	float height;
